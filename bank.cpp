@@ -6,28 +6,39 @@
     {
      private:
 
-     int ac_no,account;
+     int account=0;
      float balance;
      char name[20];
 
      public:
-     void open(void);
+     void open(bank *);
      void deposite(int);
      void withdraw(int);
      void search(int);
-     void display(void);
+     void display(int);
 
     };
 
-    void bank::open(void)
+    void bank::open(bank a[])
 
      {
          cout<<"ENTER YOUR NAME :  ";
          cin>>name;
          cout<<"ENTER YOUR ACCOUNT NUMBER :  ";
-         cin>>account;
+         int a1;
+         cin>>a1;
+         for(int i=0;i<20;i++){
+            if(a1==a[i].account)
+            {
+                cout<<"ACCOUNT ALREADY EXIST\nPLZ ENTER NEW A/C:";
+                return;
+            }
+         }
+            account=a1;
+
          cout<<"ENTER THE AMOUNT OF MONEY :  ";
          cin>>balance;
+
      }
 
           void bank::deposite(int j)
@@ -61,7 +72,7 @@
               cout<<"SORRY !!! THERE IS NOT ENOUGH MONEY IN YOUR ACCOUNT\n";
             else if(p>=0)
               {
-                cout<<"\n\tYOUR REQUEST TO WITHDRAW MONEY HAS DONE\n\n";
+                cout<<"\n\tYOUR REQUEST TO WITHDRAW MONEY HAS DONE\n\tYOUR CURRENT BALANCE IS = "<<p<<"\n\n";
                 balance=p;
               }
 
@@ -71,11 +82,12 @@
     }
 
 
-    void bank::display(void)
+    void bank::display(int m){
+    if(account==m)
     {    cout<<"\n\nNAME : "<<name<<"\n\nACCOUNT NO. "<<account<<"\n\nBALANCE : "<<balance<<"\n\n";
     }
 
-
+    }
 
     void bank::search(int m)
 
@@ -109,7 +121,7 @@
                  cout<<"\nHOW MANY ACCOUNT YOU WANT TO OPEN?\n"; //opening account
                  cin>>y;
                   for(i=0;i<y;i++)
-                b[i].open();
+                b[i].open(b);
                break;
               case 2:
                  cout<<"\nENTER YOUR ACCOUNT NO. ";             //deposite amount
@@ -129,9 +141,11 @@
                 break;
 
               case 4:
+                  cout<<"\nENTER YOUR ACCOUNT NO. ";              //search option
+                cin>>m;
                 for(i=0;i<y;i++)
                   {                                             //display option
-                  b[i].display();
+                  b[i].display(m);
                   }
                 break;
               case 5:
